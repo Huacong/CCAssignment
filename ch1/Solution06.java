@@ -40,7 +40,9 @@ public class Solution06 {
 
 	/* Solutions */
 	/*	Solution 1
-
+		
+		Strightly counting each consecutive char, and append the counts to the new
+		string.
 	*/
 	static private String stringCompression(String s) {
 		if (s == null || s.length() == 0)
