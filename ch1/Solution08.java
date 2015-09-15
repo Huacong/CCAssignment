@@ -4,7 +4,6 @@
 	row and column are set to 0.
 */
 
-
 /*
 Edge case: null, empty, [[1, 1], [1, 0]], [[1, 0], [1, 1]], [[1, 1], [0, 1]], [[0, 1], [1, 1]]
 */
