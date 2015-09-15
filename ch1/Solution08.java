@@ -122,11 +122,11 @@ public class Solution08 {
 
 		//set row/col head
 		if (rowHeadZero)
-            for (int i = 0; i < m; i++)
-                matrix[i][0] = 0;
+			for (int i = 0; i < m; i++)
+				matrix[i][0] = 0;
         
-        if (colHeadZero)   
-            for (int j = 0; j < n; j++)
-                matrix[0][j] = 0;
+		if (colHeadZero)   
+			for (int j = 0; j < n; j++)
+				matrix[0][j] = 0;
 	}
 }
