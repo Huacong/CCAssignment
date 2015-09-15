@@ -71,7 +71,6 @@ public class Solution06 {
 		if (result.length() >= s.length())
 			return s;
 
-
 		return result.toString();
 	}
 }
