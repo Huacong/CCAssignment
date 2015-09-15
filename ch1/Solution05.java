@@ -26,7 +26,6 @@ public class Solution05 {
 		//algorithm
 		boolean b = oneWay1(list.get(0), list.get(1));
 		//boolean b = oneWay2(list.get(0), list.get(1));
-		//boolean b = oneWay3(list.get(0), list.get(1));
 
 		output(b);
 	}
@@ -57,7 +56,7 @@ public class Solution05 {
 	/*	Solution 1
 		
 		Use dynamic programing to compute the minimum number of steps to convert
-		s1 to s2
+		s1 to s2, could be used to handle advanced questions.
 
 		Time: O(n^2), because the difference of length of s1 and s2 are only allowed 
 			  to be 1, which should be n and n-1. 
@@ -91,8 +90,8 @@ public class Solution05 {
 					//current chars match, step same as stems[i-1][j-1]
 					steps[i][j] = steps[i-1][j-1];
 				else
-					//steps[i-1][j] + 1, delete last char in s1, plus steps s1[0...i-2] -> s2[0...j-1]
-                    //steps[i][j-1] + 1, delete last char in s2, plus steps s1[0...i-1] -> s2[0...j-2]
+					//steps[i-1][j] + 1, delete last char in s1, plus steps s1[0, i-2] -> s2[0, j-1]
+                    //steps[i][j-1] + 1, steps s1[0, i-1] -> s2[0, j-2], then insert a char to s1, s1[0, i] == s2[0, j-1]
                     //steps[i-1][j-1] + 1, replace last char in s1, no matter what last char s2 has
                     steps[i][j] = 1 + Math.min(Math.min(steps[i-1][j], steps[i][j-1]), steps[i-1][j-1]);
 			}
@@ -103,9 +102,10 @@ public class Solution05 {
 
 	/*	Solution 2
 		
-		Brute force, check every possible result of the original string
+		Simply check two strings by different situation
 
-		Time: O(3^n)
+		Time: O(n)
+		Space: O(1)
 	*/
 	static private boolean oneWay2(String s1, String s2) {
 		if (s1 == null || s2 == null)
@@ -113,28 +113,45 @@ public class Solution05 {
 		if (Math.abs(s1.length() - s2.length()) > 1) //distance greater than 1
 			return false;
 
-		char[] c1 = s1.toCharArray();
-		char[] c2 = s2.toCharArray();
-
-		//insert a char to the one with less chars, or replace chars when has same
-		//number of chars
-		if (c1.length < c2.length)
-			return oneWay2_insert(c1, c2);
-		else if (c1.length > c2.length)
-			return oneWay2_insert(c2, c1);
+		if (s1.length() < s2.length())
+			return oneWay2_insert(s1, s2);
+		else if (s1.length() > s2.length())
+			return oneWay2_insert(s2, s1);
 		else //c1.length == c2.length
-			return oneWay2_replace(c1, c2);
+			return oneWay2_replace(s1, s2);
 	}
 
-	static private boolean oneWay2_insert(char[] c1, char[] c2) {
+	//s1 is the shorter string and s2 is the longer one
+	//only allow skip the index for s2 once, the skip char is the one s1 needs to be inserted
+	static private boolean oneWay2_insert(String s1, String s2) {
+		for (int i = 0, j = 0; i < s1.length() && j < s2.length();) {
+			if (s1.charAt(i) != s2.charAt(j)) {
+				if (i != j)
+					return false;
+				else
+					j++;
+			} else {
+				i++;
+				j++;
+			}
+		}
+
 		return true;
 	}
 
-	static private boolean oneWay2_replace(char[] c1, char[] c2) {
+	//only allow one diffenence between s1 and s2
+	static private boolean oneWay2_replace(String s1, String s2) {
+		boolean foundOnce = false;
+
+		for (int i = 0; i < s1.length(); i++) {
+			if (s1.charAt(i) != s2.charAt(i)) {
+				if (foundOnce)
+					return false;
+				else
+					foundOnce = true;
+			}
+		}
+
 		return true;
 	}
-
-	/*	Solution 3
-
-	*/
 }
