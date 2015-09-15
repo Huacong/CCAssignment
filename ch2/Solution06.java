@@ -71,7 +71,7 @@ public class Solution06 {
 	*/
 	static private boolean palindrome(ListNode head) {
 		if (head == null || head.next == null)
-			return true;
+			return true; 
 
 		Deque<Integer> stack = new ArrayDeque<Integer>();
 	    
