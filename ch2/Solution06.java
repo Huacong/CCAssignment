@@ -74,30 +74,30 @@ public class Solution06 {
 			return true;
 
 		Deque<Integer> stack = new ArrayDeque<Integer>();
-        
-        //put the first half of the list into stack
-        ListNode slow = head;
-        ListNode fast = head;
-        while (fast != null && fast.next != null) {
-            stack.push(slow.value);
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-        
-        if (fast != null && fast.next == null) //odd nodes
-            slow = slow.next; //the original slow is the center, move to the begining of 2nd half
-        
-        //start to check
-        while (stack.size() > 0 && slow != null) {
-            if (stack.pop() == slow.value)
-                slow = slow.next;
-            else
-                return false;
-        }
-        
-        if (stack.size() == 0 && slow == null) //nodes from 1st half and 2nd half are matched
-            return true;
-        else
-            return false;
+	    
+	    //put the first half of the list into stack
+	    ListNode slow = head;
+	    ListNode fast = head;
+	    while (fast != null && fast.next != null) {
+	        stack.push(slow.value);
+	        slow = slow.next;
+	        fast = fast.next.next;
+	    }
+	    
+	    if (fast != null && fast.next == null) //odd nodes
+	        slow = slow.next; //the original slow is the center, move to the begining of 2nd half
+	    
+	    //start to check
+	    while (stack.size() > 0 && slow != null) {
+	        if (stack.pop() == slow.value)
+	            slow = slow.next;
+	        else
+	            return false;
+	    }
+	    
+	    if (stack.size() == 0 && slow == null) //nodes from 1st half and 2nd half are matched
+	        return true;
+	    else
+	        return false;
 	}
 }
