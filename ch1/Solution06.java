@@ -7,18 +7,69 @@
 	string has only uppercase and lowercase letters (a-z).
 */
 
+/*
+Edge case: null, "", 
+*/
+
+import java.io.*;
+import java.util.*;
+
 public class Solution06 {
+	static public void main(String[] args) throws IOException {
+		String s = input();
 
-	static public void main(String[] args) {
+		String result = stringCompression(s);
 
+		output(result);
 	}
 
-	//helpers
+	/* Helpers */
+	static private String input() throws IOException {
+		System.out.println("1.6 String Compression");
+		System.out.print("Please input the string to be compressed: ");
 
+		BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+		String s = stdin.readLine();
 
-	//solutions
-	/*
-	Solution 1
+		return s;
+	}
+
+	static private void output(String s) {
+		System.out.println(s);
+	}
+
+	/* Solutions */
+	/*	Solution 1
 
 	*/
+	static private String stringCompression(String s) {
+		if (s == null || s.length() == 0)
+			return s;
+
+		//count and append
+		StringBuilder result = new StringBuilder();
+		int count = 1;
+		for (int i = 1; i < s.length(); i++) {
+			if (s.charAt(i) == s.charAt(i-1)) {
+				count++;
+			} else {
+				result.append(s.charAt(i-1));
+				result.append(count);
+				count = 1;
+
+				if (result.length() >= s.length())
+					return s;
+			}
+		}
+
+		//append the last char
+		result.append(s.charAt(s.length() - 1));
+		result.append(count);
+
+		if (result.length() >= s.length())
+			return s;
+
+
+		return result.toString();
+	}
 }
