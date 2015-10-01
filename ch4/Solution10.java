@@ -114,24 +114,26 @@ public class Solution10 {
 	}
 
 	private static void preorderSeq(TreeNode root, StringBuilder seq){
-		if (root == null)
-			return;
+		if (root == null) { //append -1 for to indicate the child is null
+			seq.append(-1 + " ");
+		} else {
+			seq.append(root.val + " ");
 
-		seq.append(root.val);
+			preorderSeq(root.left, seq);
 
-		preorderSeq(root.left, seq);
-
-		preorderSeq(root.right, seq);
+			preorderSeq(root.right, seq);
+		}
 	}
 
 	private static void inorderSeq(TreeNode root, StringBuilder seq){
-		if (root == null)
-			return;
+		if (root == null) { //append -1 for to indicate the child is null
+			seq.append(-1 + " ");
+		} else {
+			inorderSeq(root.left, seq);
 
-		inorderSeq(root.left, seq);
+			seq.append(root.val + " ");
 
-		seq.append(root.val);
-
-		inorderSeq(root.right, seq);
+			inorderSeq(root.right, seq);
+		}
 	}
 }

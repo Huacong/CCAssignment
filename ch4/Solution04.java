@@ -26,8 +26,6 @@ public class Solution04 {
 	}
 
 	private static void test1() {
-		System.out.println("4.4 Check Balanced");
-
 		TreeNode root = generateTreeBalanced();
 
 		System.out.println(checkBalanced(root));
