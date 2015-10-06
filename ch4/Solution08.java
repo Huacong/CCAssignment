@@ -29,10 +29,6 @@ class Input {
 	}
 }
 
-class Result {
-	public TreeNode ancestor; //the common ancestor
-}
-
 public class Solution08 {
 	public static void main(String[] args) {
 		System.out.println("4.8 First Common Ancestor");
@@ -74,14 +70,17 @@ public class Solution08 {
 	
 	Analysis:
 		The first common ancestor must have one of the nodes in its left subtree
-		and the other one in the right subtree.
+		and the other one in the right subtree. Or one is the other's ancestor
 
 		This also applies to multi-children tree
 
 	Assumption:
-		TreeNode is the general one without pointer to its parent. The input is
-		the root of the tree and reference to the two nodes that need to find 
-		the first common ancestor
+		TreeNode is the general one without pointer to its parent. 
+
+		The input is the root of the tree and reference to the two nodes that 
+		need to find the first common ancestor.
+
+		Both nodes are exist in the tree
 
 	Implementation: 
 		Recursively check if every subtree contains one target node
@@ -90,36 +89,22 @@ public class Solution08 {
 		Space: O(1)
 	*/
 	private static TreeNode firstCommonAncestor(TreeNode root, TreeNode node1, TreeNode node2) {
-		Result result = new Result();
-
-		containNodes(root, node1, node2, result);
-
-		return result.ancestor; //could be null
-	}
-
-	public static boolean containNodes(TreeNode root, TreeNode node1, TreeNode node2, Result result) {
 		if (root == null)
-			return false;
-		
-		if (root == node1 || root == node2) //if find the target nodes on the half way
-			return true;
+			return null;
 
-		boolean leftContains = containNodes(root.left, node1, node2, result);
-		boolean rightContains = containNodes(root.right, node1, node2, result);
+		//report the presence of node, if one is the other's ancestor, this will
+		//become the final result
+		if (root == node1 || root == node2)
+			return root;
 
-		//already find out the first common ancestor
-		if (result.ancestor != null)
-			return true;
+		TreeNode leftAncestor = firstCommonAncestor(root.left, node1, node2);
+		TreeNode rightAncestor = firstCommonAncestor(root.right, node1, node2);
 
-		//check if this is the first common ancestor
-		if (leftContains && rightContains) {
-			result.ancestor = root;
-			return true;
-		} else if (leftContains || rightContains) {
-			//only have one node in the tree
-			return true;
-		}
+		//find one in the left subtree and another in the right subtree, the 
+		//node is the first common ancestor
+		if (leftAncestor != null && rightAncestor != null)
+			return root;
 
-		return false;
+		return (leftAncestor != null) ? leftAncestor : rightAncestor;
 	}
 }
