@@ -10,4 +10,6 @@ Ch1: Arrays and Strings<br>
 Ch2: Linked List<br>
 Ch3: Stacks and Queues<br>
 Ch4: Trees and Graphs<br>
+Ch5: Bit Manipulation<br>
+Ch6: Math and Logic Puzzles<br>
 Ch10: Sorting and Searching
